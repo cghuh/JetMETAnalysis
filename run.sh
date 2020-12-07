@@ -1,6 +1,6 @@
 #!/bin/bash
 
-OUTDIR=jec_test4_pu200
+OUTDIR=jec_test5_pu200
 
 set -e
 
@@ -68,7 +68,7 @@ unset OUTDIR
 
 ## pre-processing
 if [ ! -f step0.done ]; then
-  JRA_PU=${CMSSW_BASE}/src/NTupleAnalysis/JMETrigger/test/outputJRA_hltPhase2_201204/ntuples/HLT_TRKv06p1_TICL/Phase2HLTTDR_QCD_PtFlat15to3000_14TeV_PU200.root
+  JRA_PU=/eos/cms/store/group/phys_jetmet/saparede/phase2_hlt_jec/jra_ntuples/dec04_1M/flatpu_1M.root
   echo "mkdir -p jraNTuples && \\
 ${CMSSW_BASE}/src/JetMETAnalysis/JetAnalyzers/scripts/renameJRADirs.py -v 2 -i ${JRA_PU} -o jraNTuples/PU.root" > step0.sh
   unset JRA_PU
@@ -82,7 +82,7 @@ if [ ! -f step6.done ]; then
 fi
 
 if [ ! -f step7.done ]; then
-  echo "jet_l2_correction_x -input histogram_ak4puppi_step6.root -algs ak4puppi -era ERA -output l2p3.root -outputDir ./ -makeCanvasVariable AbsCorVsJetPt:JetEta -l2l3 true -batch true -histMet median -l2pffit standard -maxFitIter 30 -ptclipfit true" > step7.sh
+  echo "jet_l2_correction_x -input histogram_ak4puppi_step6.root -algs ak4puppi -era ERA -output l2p3.root -outputDir ./ -makeCanvasVariable AbsCorVsJetPt:JetEta -l2l3 true -batch true -histMet median -l2pffit standard -maxFitIter 50 -ptclipfit true" > step7.sh
   source step7.sh && touch step7.done
 fi
 
